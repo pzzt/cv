@@ -6,7 +6,6 @@ Loads and serves structured portfolio data from JSON file.
 
 import json
 import logging
-from pathlib import Path
 
 from app.core.config import Settings, get_settings
 
@@ -42,7 +41,7 @@ class PortfolioService:
             return self._cached_data
 
         try:
-            with open(self._portfolio_path, "r", encoding="utf-8") as f:
+            with open(self._portfolio_path, encoding="utf-8") as f:
                 self._cached_data = json.load(f)
             logger.info("Portfolio data loaded from: %s", self._portfolio_path)
             return self._cached_data

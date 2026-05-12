@@ -14,14 +14,14 @@ Why separate schemas:
 - Enables response filtering and transformation
 """
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from pydantic import BaseModel, Field
 
 
 def _utc_now() -> datetime:
     """Return current UTC datetime."""
-    return datetime.now(timezone.utc)
+    return datetime.now(UTC)
 
 
 class HealthResponse(BaseModel):

@@ -7,8 +7,6 @@ Dependency injection in FastAPI provides:
 - Request-scoped resource management
 """
 
-from fastapi import Depends
-
 from app.core.config import Settings, get_settings
 from app.services.markdown_service import MarkdownService, get_markdown_service
 

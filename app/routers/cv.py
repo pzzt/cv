@@ -22,7 +22,6 @@ from fastapi import APIRouter, HTTPException, status
 from app.schemas.cv import CVHtmlResponse, CVRawResponse, MetadataResponse
 from app.services.markdown_service import (
     MarkdownParseError,
-    MarkdownService,
     get_markdown_service,
 )
 

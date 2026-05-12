@@ -8,7 +8,7 @@ import logging
 
 from fastapi import APIRouter, HTTPException, status
 
-from app.services.portfolio_service import PortfolioService, get_portfolio_service
+from app.services.portfolio_service import get_portfolio_service
 
 router = APIRouter(prefix="/portfolio", tags=["portfolio"])
 logger = logging.getLogger(__name__)
@@ -29,12 +29,12 @@ async def get_experience() -> dict:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Portfolio data not found",
-        )
+        ) from None
     except Exception as e:
         logger.error("Failed to get experience: %s", e)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Failed to load experience data",
+            detail="Failed to load experience data",
         ) from e
 
 
@@ -53,12 +53,12 @@ async def get_skills() -> dict:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Portfolio data not found",
-        )
+        ) from None
     except Exception as e:
         logger.error("Failed to get skills: %s", e)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Failed to load skills data",
+            detail="Failed to load skills data",
         ) from e
 
 
@@ -77,12 +77,12 @@ async def get_projects() -> dict:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Portfolio data not found",
-        )
+        ) from None
     except Exception as e:
         logger.error("Failed to get projects: %s", e)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Failed to load projects data",
+            detail="Failed to load projects data",
         ) from e
 
 
@@ -101,12 +101,12 @@ async def get_contact() -> dict:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Portfolio data not found",
-        )
+        ) from None
     except Exception as e:
         logger.error("Failed to get contact: %s", e)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Failed to load contact data",
+            detail="Failed to load contact data",
         ) from e
 
 
@@ -125,10 +125,10 @@ async def get_all() -> dict:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Portfolio data not found",
-        )
+        ) from None
     except Exception as e:
         logger.error("Failed to get portfolio: %s", e)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Failed to load portfolio data",
+            detail="Failed to load portfolio data",
         ) from e

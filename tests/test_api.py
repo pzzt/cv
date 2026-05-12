@@ -127,14 +127,15 @@ class TestRootEndpoint:
     """Tests for root endpoint."""
 
     def test_root_endpoint(self, client):
-        """Test root endpoint returns basic info."""
+        """Test root endpoint returns HTML page."""
         response = client.get("/")
         assert response.status_code == 200
 
-        data = response.json()
-        assert data["message"] == "CV API"
-        assert data["version"] == "1.0.0"
-        assert data["health"] == "/api/health"
+        content_type = response.headers.get("content-type", "")
+        assert "text/html" in content_type
+
+        text = response.text
+        assert "<!DOCTYPE html>" in text or "<html" in text
 
 
 class TestErrorHandling:

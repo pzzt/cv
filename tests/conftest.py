@@ -6,7 +6,6 @@ Shared test setup for all test modules.
 
 import sys
 from pathlib import Path
-from unittest.mock import AsyncMock, MagicMock
 
 import pytest
 

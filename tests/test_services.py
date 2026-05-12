@@ -4,12 +4,13 @@ Service layer tests.
 Tests the business logic in isolation from FastAPI.
 """
 
-import pytest
 from pathlib import Path
 
+import pytest
+
 from app.services.markdown_service import (
-    MarkdownService,
     MarkdownParseError,
+    MarkdownService,
     ParserStatus,
 )
 

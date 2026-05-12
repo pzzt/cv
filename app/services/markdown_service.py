@@ -17,10 +17,9 @@ Why a separate service:
 
 import hashlib
 import logging
-from datetime import datetime, timezone
-from enum import Enum
+from datetime import UTC, datetime
+from enum import StrEnum
 from functools import lru_cache
-from pathlib import Path
 
 from markdown import markdown
 from nh3 import clean
@@ -30,7 +29,7 @@ from app.core.config import Settings, get_settings
 logger = logging.getLogger(__name__)
 
 
-class ParserStatus(str, Enum):
+class ParserStatus(StrEnum):
     """Markdown parser status indicators."""
 
     READY = "ready"
@@ -108,7 +107,7 @@ class MarkdownService:
                 "filename": self._markdown_path.name,
                 "path": str(self._markdown_path.absolute()),
                 "size_bytes": stat.st_size,
-                "last_modified": datetime.fromtimestamp(stat.st_mtime, tz=timezone.utc),
+                "last_modified": datetime.fromtimestamp(stat.st_mtime, tz=UTC),
                 "content_length": len(content),
                 "line_count": content.count("\n") + 1,
             }
@@ -198,7 +197,7 @@ class MarkdownService:
                     self._cached_hash = current_hash
                     self._cached_content = content
                     self._cached_html = None  # Invalidate HTML cache
-                    self._last_load_time = datetime.now(tz=timezone.utc)
+                    self._last_load_time = datetime.now(tz=UTC)
                     logger.info("Markdown file reloaded: %s", self._markdown_path)
 
             return content, metadata
@@ -301,7 +300,7 @@ class MarkdownService:
                 "filename": self._markdown_path.name,
                 "path": str(self._markdown_path.absolute()),
                 "size_bytes": stat.st_size,
-                "last_modified": datetime.fromtimestamp(stat.st_mtime, tz=timezone.utc),
+                "last_modified": datetime.fromtimestamp(stat.st_mtime, tz=UTC),
                 "content_length": stat.st_size,  # Approximate
                 "line_count": 0,  # Not reading file
             }

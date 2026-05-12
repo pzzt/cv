@@ -9,6 +9,7 @@ from pydantic import BaseModel
 
 class ExperienceEntry(BaseModel):
     """Single experience entry."""
+
     role: str
     company: str
     period: str
@@ -18,6 +19,7 @@ class ExperienceEntry(BaseModel):
 
 class SkillCategory(BaseModel):
     """Single skill category."""
+
     category: str
     tagClass: str  # tag-blue, tag-green, tag-amber
     items: list[str]
@@ -25,6 +27,7 @@ class SkillCategory(BaseModel):
 
 class ProjectEntry(BaseModel):
     """Single project entry."""
+
     title: str
     architecture: str
     tooling: list[str]
@@ -35,6 +38,7 @@ class ProjectEntry(BaseModel):
 
 class ContactInfo(BaseModel):
     """Contact information."""
+
     email: str
     github: str
     linkedin: str
