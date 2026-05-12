@@ -17,7 +17,7 @@ docker run -p 8000:8000 pzzt/cv:latest
 
 ## Contact
 
-- **Email**: <pozzato.andrea@gmail.com>
+- **Website**: [andreapozzato.com](https://www.andreapozzato.com)
 - **GitHub**: [pzzt](https://github.com/pzzt)
 - **LinkedIn**: [andreapozzato](https://linkedin.com/in/andreapozzato)
 
