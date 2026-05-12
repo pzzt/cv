@@ -15,12 +15,10 @@ Why custom logging setup:
 import json
 import logging
 import sys
-from enum import Enum
-
-from pydantic import BaseModel
+from enum import StrEnum
 
 
-class LogFormat(str, Enum):
+class LogFormat(StrEnum):
     """Supported log formats."""
 
     JSON = "json"

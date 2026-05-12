@@ -71,7 +71,8 @@ jobs:
           pip install -r requirements/dev.txt
 
       - name: Create test data directory
-        run: mkdir -p data && cp mycv.md data/mycv.md
+        run: mkdir -p data
+        # mycv.md is already in data/ directory in the repo
 
       - name: Run tests with coverage
         run: |

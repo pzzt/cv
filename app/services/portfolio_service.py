@@ -46,7 +46,7 @@ class PortfolioService:
                 self._cached_data = json.load(f)
             logger.info("Portfolio data loaded from: %s", self._portfolio_path)
             return self._cached_data
-        except FileNotFoundError as e:
+        except FileNotFoundError:
             logger.error("Portfolio file not found: %s", self._portfolio_path)
             raise
         except json.JSONDecodeError as e:
