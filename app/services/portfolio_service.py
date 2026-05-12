@@ -6,6 +6,7 @@ Loads and serves structured portfolio data from JSON file.
 
 import json
 import logging
+from typing import cast
 
 from app.core.config import Settings, get_settings
 
@@ -52,21 +53,25 @@ class PortfolioService:
             logger.error("Invalid JSON in portfolio file: %s", e)
             raise
 
-    def get_experience(self) -> list:
+    def get_experience(self) -> list[dict]:
         """Get experience entries."""
-        return self.load_portfolio().get("experience", [])
+        data = self.load_portfolio()
+        return cast(list[dict], data.get("experience", []))
 
-    def get_skills(self) -> list:
+    def get_skills(self) -> list[dict]:
         """Get skill categories."""
-        return self.load_portfolio().get("skills", [])
+        data = self.load_portfolio()
+        return cast(list[dict], data.get("skills", []))
 
-    def get_projects(self) -> list:
+    def get_projects(self) -> list[dict]:
         """Get project entries."""
-        return self.load_portfolio().get("projects", [])
+        data = self.load_portfolio()
+        return cast(list[dict], data.get("projects", []))
 
     def get_contact(self) -> dict:
         """Get contact information."""
-        return self.load_portfolio().get("contact", {})
+        data = self.load_portfolio()
+        return cast(dict, data.get("contact", {}))
 
 
 def get_portfolio_service() -> PortfolioService:

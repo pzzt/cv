@@ -88,7 +88,7 @@ def setup_logging(log_level: str = "INFO", log_format: LogFormat = LogFormat.PLA
 
     # Set formatter
     if log_format == LogFormat.JSON:
-        formatter = JsonFormatter()
+        formatter: logging.Formatter = JsonFormatter()
     else:
         formatter = logging.Formatter(
             fmt="%(asctime)s | %(levelname)-8s | %(name)s:%(funcName)s:%(lineno)d | %(message)s",

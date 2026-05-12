@@ -15,6 +15,7 @@ Why this structure:
 - Standard FastAPI patterns for maintainability
 """
 
+from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
 from pathlib import Path
 
@@ -29,7 +30,7 @@ from app.utils.logging import LogFormat, setup_logging
 
 
 @asynccontextmanager
-async def lifespan(app: FastAPI):
+async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     """
     Application lifespan manager.
 
@@ -123,7 +124,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     # Root endpoint - serve the frontend HTML
     @app.get("/", include_in_schema=False)
-    async def root():
+    async def root() -> FileResponse | dict[str, str | None]:
         """Serve the frontend HTML."""
         html_path = Path(__file__).parent.parent / "static" / "index.html"
         if html_path.exists():

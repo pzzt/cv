@@ -38,6 +38,9 @@ def _handle_parse_error(error: MarkdownParseError) -> None:
 
     Raises:
         HTTPException: Appropriate HTTP error response
+
+    Returns:
+        Never - always raises
     """
     if "file not found" in error.message.lower():
         raise HTTPException(
@@ -77,6 +80,7 @@ async def get_raw_cv() -> CVRawResponse:
     except MarkdownParseError as e:
         logger.error("Failed to get raw CV: %s", e)
         _handle_parse_error(e)
+        raise  # Never reached, but mypy needs this
 
 
 @router.get("/html", response_model=CVHtmlResponse)
@@ -106,6 +110,7 @@ async def get_html_cv() -> CVHtmlResponse:
     except MarkdownParseError as e:
         logger.error("Failed to get HTML CV: %s", e)
         _handle_parse_error(e)
+        raise  # Never reached, but mypy needs this
 
 
 @router.get("/metadata", response_model=MetadataResponse)
