@@ -1,0 +1,6 @@
+# Production dependencies
+-r base.txt
+-r markdown.txt
+
+# Production server
+gunicorn>=21.2.0

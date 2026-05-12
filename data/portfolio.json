@@ -1,0 +1,163 @@
+{
+  "experience": [
+    {
+      "role": "System Engineer",
+      "company": "Freelance",
+      "period": "May 2024 — Present",
+      "status": "ACTIVE",
+      "contributions": [
+        "Microsoft 365 tenant setup and administration",
+        "Email configuration and migration support",
+        "Linux-based environment support and troubleshooting"
+      ]
+    },
+    {
+      "role": "System Engineer – Remote Services",
+      "company": "ACS Datasystem Spa",
+      "period": "Jul 2020 — Dec 2022",
+      "status": "ARCHIVED",
+      "contributions": [
+        "Maintenance of Microsoft 365 environments",
+        "Maintenance of virtualized environments",
+        "Maintenance of Windows Server services (Active Directory, RDS, File Server)",
+        "Maintenance of backup solutions using Veeam",
+        "Support for remote access environments (Citrix, RDS, VDI, ACS-Cloud)"
+      ]
+    },
+    {
+      "role": "System Engineer",
+      "company": "Genetica Marketing",
+      "period": "Mar 2019 — Jul 2020",
+      "status": "ARCHIVED",
+      "contributions": [
+        "Full management of internal IT infrastructure",
+        "Administration of Windows Server environment and Domain Controller",
+        "Management of Exchange Server (on-premises)",
+        "Linux server administration",
+        "Technical support and infrastructure maintenance"
+      ]
+    },
+    {
+      "role": "System Engineer & DIT – Film Industry",
+      "company": "Film Industry",
+      "period": "Jan 2010 — Dec 2018",
+      "status": "ARCHIVED",
+      "contributions": [
+        "Management of on-set IT infrastructure and high-performance storage systems",
+        "Coordination of data pipelines between production and post-production",
+        "Ensuring data integrity, security, and transfer reliability in international environments",
+        "Automation of internal processes using Python scripts on Linux servers"
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "category": "Infrastructure",
+      "tagClass": "tag-blue",
+      "items": [
+        "Linux",
+        "Windows Server",
+        "Proxmox",
+        "VMware ESXi",
+        "Hyper-V",
+        "Networking"
+      ]
+    },
+    {
+      "category": "Microsoft Cloud",
+      "tagClass": "tag-green",
+      "items": [
+        "Microsoft 365",
+        "Exchange Online",
+        "Teams",
+        "SharePoint",
+        "OneDrive"
+      ]
+    },
+    {
+      "category": "Automation",
+      "tagClass": "tag-amber",
+      "items": [
+        "Bash",
+        "Python",
+        "PowerShell",
+        "Ansible",
+        "Git"
+      ]
+    },
+    {
+      "category": "Containers",
+      "tagClass": "tag-blue",
+      "items": [
+        "Docker",
+        "Kubernetes (k3s)",
+        "Git-based workflows"
+      ]
+    },
+    {
+      "category": "CI/CD",
+      "tagClass": "tag-green",
+      "items": [
+        "Git",
+        "GitHub Actions",
+        "Cloudflare Pages",
+        "Hugo"
+      ]
+    },
+    {
+      "category": "Backup",
+      "tagClass": "tag-amber",
+      "items": [
+        "Veeam Backup & Replication"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "title": "Personal Homelab Infrastructure",
+      "architecture": "Proxmox-based virtualization environment with Debian hosts, running a Kubernetes cluster via k3s, with secure VPN networking for remote access.",
+      "tooling": [
+        "Proxmox",
+        "Debian",
+        "k3s",
+        "WireGuard",
+        "Docker"
+      ],
+      "challenge": "Building a resilient home lab environment for testing and learning enterprise-grade technologies while maintaining low power consumption and high availability.",
+      "solution": "Implemented Proxmox for virtualization with ZFS storage, deployed k3s for Kubernetes learning, configured WireGuard for secure remote access, and automated backups with Veeam.",
+      "tagClass": "tag-blue"
+    },
+    {
+      "title": "Personal Website Infrastructure",
+      "architecture": "Static website built with Hugo, automatically deployed via GitHub Actions to Cloudflare Pages with Git-based content management.",
+      "tooling": [
+        "Hugo",
+        "GitHub Actions",
+        "Cloudflare Pages",
+        "Git"
+      ],
+      "challenge": "Creating a fast, secure personal website with easy content updates and zero infrastructure maintenance.",
+      "solution": "Used Hugo for static site generation with Git-based workflow. GitHub Actions automatically build and deploy on push to main branch, while Cloudflare Pages provides global CDN and HTTPS.",
+      "tagClass": "tag-green"
+    },
+    {
+      "title": "Experimental Projects",
+      "architecture": "AI-assisted development projects exploring automation workflows and modern tooling patterns.",
+      "tooling": [
+        "Python",
+        "Git",
+        "Claude",
+        "Automation"
+      ],
+      "challenge": "Rapidly prototyping and testing new development workflows and automation patterns.",
+      "solution": "Created experimental projects using AI-assisted development tools to explore automation possibilities and improve development efficiency.",
+      "tagClass": "tag-amber"
+    }
+  ],
+  "contact": {
+    "email": "pozzato.andrea@gmail.com",
+    "github": "github.com/pzzt",
+    "linkedin": "linkedin.com/in/andreapozzato",
+    "phone": "Available on request"
+  }
+}

@@ -1,0 +1,3 @@
+# Markdown processing dependencies
+markdown>=3.5.0
+nh3>=0.2.14

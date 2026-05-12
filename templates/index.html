@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Srivatsa — DevOps / Cloud Engineer</title>
+    <meta name="description" content="DevOps and Cloud Engineer. Building resilient infrastructure at scale.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    },
+                    colors: {
+                        surface: {
+                            0: 'var(--surface-0)',
+                            1: 'var(--surface-1)',
+                            2: 'var(--surface-2)',
+                            3: 'var(--surface-3)',
+                        },
+                        fg: {
+                            DEFAULT: 'var(--fg)',
+                            muted: 'var(--fg-muted)',
+                            faint: 'var(--fg-faint)',
+                        },
+                        accent: {
+                            blue: '#5b8def',
+                            green: '#4ade80',
+                            amber: '#d97706',
+                        }
+                    },
+                    letterSpacing: {
+                        tightest: '-0.06em',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --surface-0: #0a0a0a;
+            --surface-1: #111111;
+            --surface-2: #1a1a1a;
+            --surface-3: #2a2a2a;
+            --fg: #e8e8e3;
+            --fg-muted: #888883;
+            --fg-faint: #555550;
+        }
+
+        .light {
+            --surface-0: #f5f5f0;
+            --surface-1: #eeeee9;
+            --surface-2: #e0e0db;
+            --surface-3: #d0d0cb;
+            --fg: #1a1a18;
+            --fg-muted: #525250;
+            --fg-faint: #8a8a85;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background-color: var(--surface-0);
+            color: var(--fg);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        ::selection {
+            background: #5b8def;
+            color: #0a0a0a;
+        }
+
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        .dark ::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 0; }
+        .light ::-webkit-scrollbar-thumb { background: #c0c0bb; border-radius: 0; }
+
+        :focus-visible {
+            outline: 2px solid #5b8def;
+            outline-offset: 2px;
+        }
+
+        @keyframes blink {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0; }
+        }
+        .cursor-blink { animation: blink 1s step-end infinite; }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in-up {
+            animation: fadeInUp 0.4s ease-out forwards;
+            opacity: 0;
+        }
+
+        .section-label {
+            font-size: 10px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--fg-faint);
+            font-weight: 600;
+        }
+
+        .hr-brutal {
+            border: none;
+            border-top: 1px solid var(--surface-3);
+            width: 100%;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 2px 8px;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.04em;
+            border: 1px solid var(--surface-3);
+            color: var(--fg-muted);
+            line-height: 1.6;
+        }
+
+        .tag-blue { border-color: #5b8def44; color: #5b8def; }
+        .tag-green { border-color: #4ade8044; color: #4ade80; }
+        .tag-amber { border-color: #d9770644; color: #d97706; }
+
+        a.nav-link {
+            color: var(--fg-muted);
+            text-decoration: none;
+            transition: color 0.15s;
+            font-size: 12px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+        a.nav-link:hover { color: var(--fg); }
+
+        .timeline-dot {
+            width: 7px;
+            height: 7px;
+            border: 1.5px solid var(--fg-muted);
+            background: var(--surface-0);
+            flex-shrink: 0;
+            margin-top: 7px;
+        }
+        .timeline-dot.active {
+            background: #4ade80;
+            border-color: #4ade80;
+        }
+
+        .skill-category-title {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--fg-faint);
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--surface-3);
+            margin-bottom: 12px;
+        }
+
+        .project-card {
+            border: 1px solid var(--surface-3);
+            padding: 24px;
+            transition: border-color 0.2s;
+        }
+        .project-card:hover {
+            border-color: var(--fg-faint);
+        }
+
+        #mobile-menu {
+            transition: transform 0.25s ease-out, opacity 0.25s ease-out;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            .cursor-blink { animation: none; opacity: 1; }
+            .fade-in-up { animation: none; opacity: 1; }
+        }
+
+        .noise-overlay {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.022;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Noise Overlay -->
+    <svg class="noise-overlay" xmlns="http://www.w3.org/2000/svg">
+        <filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="4" stitchTiles="stitch"/></filter>
+        <rect width="100%" height="100%" filter="url(#noiseFilter)"/>
+    </svg>
+
+    <!-- Skip to Content -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[10000] focus:bg-accent-blue focus:text-black focus:px-4 focus:py-2 focus:text-xs focus:font-bold focus:uppercase focus:tracking-widest">
+        Skip to content
+    </a>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 border-b border-surface-3 bg-surface-0/95 backdrop-blur-none" role="navigation" aria-label="Main navigation">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-12 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <a href="#hero" class="text-sm font-bold tracking-tight text-fg" aria-label="Home">SRIVATSA</a>
+                <span class="hidden sm:inline text-fg-faint text-[10px] tracking-widest uppercase font-semibold" id="sys-status">SYS:ONLINE</span>
+            </div>
+            <div class="hidden md:flex items-center gap-6">
+                <a href="#experience" class="nav-link">Log</a>
+                <a href="#skills" class="nav-link">Stack</a>
+                <a href="#projects" class="nav-link">Build</a>
+                <a href="#contact" class="nav-link">Signal</a>
+                <span class="text-surface-3">|</span>
+                <button id="theme-toggle" class="nav-link cursor-pointer" aria-label="Toggle theme">LIGHT</button>
+            </div>
+            <button id="mobile-menu-btn" class="md:hidden text-fg-muted text-xs uppercase tracking-widest font-semibold" aria-label="Open menu" aria-expanded="false">
+                MENU
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 z-40 bg-surface-0 flex flex-col items-center justify-center gap-8 transform translate-x-full opacity-0 md:hidden" role="dialog" aria-label="Mobile navigation">
+        <button id="mobile-menu-close" class="absolute top-4 right-4 text-fg-muted text-xs uppercase tracking-widest font-semibold" aria-label="Close menu">CLOSE</button>
+        <a href="#experience" class="nav-link text-lg">Log</a>
+        <a href="#skills" class="nav-link text-lg">Stack</a>
+        <a href="#projects" class="nav-link text-lg">Build</a>
+        <a href="#contact" class="nav-link text-lg">Signal</a>
+        <hr class="hr-brutal w-16">
+        <button id="mobile-theme-toggle" class="nav-link text-lg" aria-label="Toggle theme">LIGHT</button>
+    </div>
+
+    <!-- Main Content -->
+    <main id="main-content" class="pt-12">
+
+        <!-- ═══ HERO ═══ -->
+        <section id="hero" class="min-h-[85vh] flex items-center px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto" aria-label="Introduction">
+            <div class="w-full pt-16 pb-16">
+                <div class="section-label mb-8">01 // INIT</div>
+                <h1 class="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tightest leading-[0.95] mb-4 text-fg">
+                    SRIVATSA
+                </h1>
+                <p class="text-lg sm:text-xl md:text-2xl font-light tracking-tight text-fg-muted mb-10">
+                    DEVOPS / CLOUD ENGINEER
+                </p>
+                <hr class="hr-brutal mb-10 max-w-xs">
+                <div id="terminal-output" class="font-mono text-sm sm:text-base leading-relaxed text-fg-muted min-h-[120px]" aria-live="polite">
+                    <!-- Terminal lines rendered by JS -->
+                </div>
+            </div>
+        </section>
+
+        <hr class="hr-brutal max-w-7xl mx-auto">
+
+        <!-- ═══ EXPERIENCE ═══ -->
+        <section id="experience" class="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto py-20 md:py-28" aria-label="Experience">
+            <div class="section-label mb-10">02 // LOG</div>
+            <h2 class="text-2xl sm:text-3xl font-bold tracking-tight mb-12 text-fg">EXPERIENCE</h2>
+            <div id="experience-container" class="space-y-0">
+                <!-- Rendered by JS from API data -->
+            </div>
+        </section>
+
+        <hr class="hr-brutal max-w-7xl mx-auto">
+
+        <!-- ═══ SKILLS ═══ -->
+        <section id="skills" class="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto py-20 md:py-28" aria-label="Skills">
+            <div class="section-label mb-10">03 // STACK</div>
+            <h2 class="text-2xl sm:text-3xl font-bold tracking-tight mb-12 text-fg">TECHNICAL STACK</h2>
+            <div id="skills-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-10">
+                <!-- Rendered by JS from API data -->
+            </div>
+        </section>
+
+        <hr class="hr-brutal max-w-7xl mx-auto">
+
+        <!-- ═══ PROJECTS ═══ -->
+        <section id="projects" class="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto py-20 md:py-28" aria-label="Projects">
+            <div class="section-label mb-10">04 // BUILD</div>
+            <h2 class="text-2xl sm:text-3xl font-bold tracking-tight mb-12 text-fg">PROJECTS</h2>
+            <div id="projects-container" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Rendered by JS from API data -->
+            </div>
+        </section>
+
+        <hr class="hr-brutal max-w-7xl mx-auto">
+
+        <!-- ═══ CONTACT ═══ -->
+        <section id="contact" class="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto py-20 md:py-28" aria-label="Contact">
+            <div class="section-label mb-10">05 // SIGNAL</div>
+            <h2 class="text-2xl sm:text-3xl font-bold tracking-tight mb-12 text-fg">CONTACT</h2>
+            <div id="contact-container">
+                <!-- Rendered by JS -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-surface-3 px-4 sm:px-6 lg:px-8 py-6 max-w-7xl mx-auto" role="contentinfo">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-[10px] tracking-widest uppercase text-fg-faint font-semibold">
+            <span>&copy; 2025 Srivatsa. All rights reserved.</span>
+            <div class="flex items-center gap-4">
+                <span>Handcrafted</span>
+                <span class="text-surface-3">|</span>
+                <span id="uptime-clock">00:00:00</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    (function() {
+        'use strict';
+
+        // ═══════════════════════════════════════════
+        // API SIMULATION LAYER
+        // Replace mock data with Flask backend endpoints:
+        //   const API_BASE = 'https://api.example.com';
+        //   async function fetchContent(section) {
+        //       const res = await fetch(`${API_BASE}/content/${section}`);
+        //       return res.json();
+        //   }
+        // ═══════════════════════════════════════════
+
+        const CONTENT_API = {
+            experience: [
+                {
+                    role: 'Senior Cloud Engineer',
+                    company: 'CloudScale Inc.',
+                    period: '2022.06 — PRESENT',
+                    status: 'ACTIVE',
+                    contributions: [
+                        'Architected multi-region Kubernetes platform serving 50M+ requests/day',
+                        'Reduced infrastructure costs by 40% through reserved instances and rightsizing',
+                        'Implemented GitOps workflow with ArgoCD across 200+ microservices',
+                        'Led incident response reducing MTTR from 45min to 8min'
+                    ]
+                },
+                {
+                    role: 'DevOps Engineer',
+                    company: 'DataPipe Labs',
+                    period: '2019.03 — 2022.05',
+                    status: 'ARCHIVED',
+                    contributions: [
+                        'Built CI/CD pipelines reducing deployment time from 45min to 3min',
+                        'Migrated legacy infrastructure to Terraform-managed IaC (200+ resources)',
+                        'Designed zero-downtime blue/green deployment strategy',
+                        'Implemented secret management with HashiCorp Vault across all environments'
+                    ]
+                },
+                {
+                    role: 'Systems Administrator',
+                    company: 'NetCore Systems',
+                    period: '2017.01 — 2019.02',
+                    status: 'ARCHIVED',
+                    contributions: [
+                        'Managed 500+ Linux servers across production environments',
+                        'Automated server provisioning with Ansible, reducing setup time by 80%',
+                        'Implemented centralized logging and monitoring with ELK stack',
+                        'Hardened system security achieving CIS compliance across all nodes'
+                    ]
+                }
+            ],
+
+            skills: [
+                {
+                    category: 'Infrastructure',
+                    tagClass: 'tag-blue',
+                    items: ['AWS', 'GCP', 'Azure', 'Terraform', 'Pulumi', 'CloudFormation', 'CDK']
+                },
+                {
+                    category: 'Containers',
+                    tagClass: 'tag-green',
+                    items: ['Kubernetes', 'Docker', 'Helm', 'Istio', 'ArgoCD', 'Containerd']
+                },
+                {
+                    category: 'CI/CD',
+                    tagClass: 'tag-amber',
+                    items: ['GitHub Actions', 'GitLab CI', 'Jenkins', 'ArgoCD', 'Spinnaker']
+                },
+                {
+                    category: 'Linux',
+                    tagClass: 'tag-blue',
+                    items: ['RHEL', 'Ubuntu', 'systemd', 'Kernel Tuning', 'LVM', 'RAID', 'LXC']
+                },
+                {
+                    category: 'Security',
+                    tagClass: 'tag-green',
+                    items: ['Vault', 'OAuth2', 'SAML', 'PKI', 'SELinux', 'OPA', 'Checkov']
+                },
+                {
+                    category: 'Scripting',
+                    tagClass: 'tag-amber',
+                    items: ['Python', 'Bash', 'Go', 'PowerShell', 'RegEx', 'jq/yq']
+                }
+            ],
+
+            projects: [
+                {
+                    title: 'Kubernetes Platform at Scale',
+                    architecture: 'Multi-region EKS clusters with Istio service mesh, automated canary deployments, and comprehensive observability stack.',
+                    tooling: ['Kubernetes', 'Terraform', 'Helm', 'ArgoCD', 'Prometheus', 'Grafana'],
+                    challenge: 'Managing 200+ microservices with zero-downtime deployments across 3 AWS regions while maintaining strict SLOs.',
+                    solution: 'Implemented canary deployments with automated rollback based on error rate thresholds. Service mesh provided traffic splitting and mTLS.',
+                    tagClass: 'tag-blue'
+                },
+                {
+                    title: 'Infrastructure Automation Pipeline',
+                    architecture: 'Event-driven IaC pipeline with drift detection, policy-as-code enforcement, and automated PR remediation.',
+                    tooling: ['Terraform', 'GitHub Actions', 'OPA', 'Checkov', 'Infracost', 'Atlantis'],
+                    challenge: 'Preventing configuration drift across 50+ repositories and 12 Kubernetes clusters while enabling developer self-service.',
+                    solution: 'Built a GitOps pipeline with OPA policy enforcement, automated drift detection scanning every 6 hours, and PR-based remediation workflows.',
+                    tagClass: 'tag-green'
+                },
+                {
+                    title: 'Observability Platform',
+                    architecture: 'Distributed tracing, metrics aggregation, and log correlation platform serving 40+ engineering teams.',
+                    tooling: ['Prometheus', 'Grafana', 'Jaeger', 'Loki', 'Alertmanager', 'Thanos'],
+                    challenge: 'Correlating metrics, traces, and logs across heterogeneous systems with inconsistent labeling and no unified query interface.',
+                    solution: 'Designed unified labeling strategy with automated service discovery. Built custom Grafana dashboards with deep-linking between metrics, traces, and logs.',
+                    tagClass: 'tag-amber'
+                },
+                {
+                    title: 'Identity & Access Management',
+                    architecture: 'Centralized IAM platform with SSO, RBAC, and automated access provisioning for cloud and on-prem resources.',
+                    tooling: ['Keycloak', 'Vault', 'OIDC', 'SAML', 'Terraform', 'Python'],
+                    challenge: 'Managing access across 5 cloud providers, 3 on-prem datacenters, and 2000+ employees with compliance requirements.',
+                    solution: 'Built identity federation with Just-In-Time provisioning. Implemented RBAC with Terraform-managed policies and automated quarterly access reviews.',
+                    tagClass: 'tag-blue'
+                }
+            ],
+
+            contact: {
+                email: 'srivatsa@example.com',
+                github: 'github.com/srivatsa',
+                linkedin: 'linkedin.com/in/srivatsa',
+                pgp: 'A1B2 C3D4 E5F6 7890'
+            }
+        };
+
+
+        // ═══════════════════════════════════════════
+        // RENDER FUNCTIONS
+        // ═══════════════════════════════════════════
+
+        function renderExperience(data) {
+            const container = document.getElementById('experience-container');
+            container.innerHTML = data.map((entry, i) => {
+                const isActive = entry.status === 'ACTIVE';
+                const statusColor = isActive ? 'text-accent-green' : 'text-fg-faint';
+                const statusBg = isActive ? 'border-accent-green/30' : 'border-surface-3';
+                return `
+                    <div class="flex gap-4 sm:gap-6 ${i > 0 ? 'mt-8' : ''} fade-in-up" style="animation-delay:${i * 100}ms">
+                        <div class="flex flex-col items-center">
+                            <div class="timeline-dot ${isActive ? 'active' : ''}"></div>
+                            ${i < data.length - 1 ? '<div class="w-px flex-1 bg-surface-3 mt-2"></div>' : ''}
+                        </div>
+                        <div class="flex-1 pb-2">
+                            <div class="flex flex-wrap items-center gap-3 mb-1">
+                                <span class="text-[10px] tracking-widest uppercase font-semibold text-fg-faint">${entry.period}</span>
+                                <span class="text-[10px] tracking-widest uppercase font-bold ${statusColor} border ${statusBg} px-2 py-0.5">${entry.status}</span>
+                            </div>
+                            <h3 class="text-base sm:text-lg font-bold tracking-tight text-fg">${entry.role}</h3>
+                            <p class="text-sm text-fg-muted mb-3">${entry.company}</p>
+                            <ul class="space-y-1.5">
+                                ${entry.contributions.map(c => `
+                                    <li class="text-sm text-fg-muted flex gap-2">
+                                        <span class="text-fg-faint select-none flex-shrink-0">-</span>
+                                        <span>${c}</span>
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderSkills(data) {
+            const container = document.getElementById('skills-container');
+            container.innerHTML = data.map((cat, i) => `
+                <div class="fade-in-up" style="animation-delay:${i * 80}ms">
+                    <div class="skill-category-title">${cat.category}</div>
+                    <div class="flex flex-wrap gap-1.5">
+                        ${cat.items.map(item => `<span class="tag ${cat.tagClass}">${item}</span>`).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderProjects(data) {
+            const container = document.getElementById('projects-container');
+            container.innerHTML = data.map((proj, i) => `
+                <article class="project-card fade-in-up" style="animation-delay:${i * 100}ms">
+                    <div class="flex items-start justify-between gap-4 mb-4">
+                        <h3 class="text-base sm:text-lg font-bold tracking-tight text-fg">${proj.title}</h3>
+                    </div>
+                    <p class="text-sm text-fg-muted leading-relaxed mb-5">${proj.architecture}</p>
+                    <div class="flex flex-wrap gap-1.5 mb-5">
+                        ${proj.tooling.map(t => `<span class="tag ${proj.tagClass}">${t}</span>`).join('')}
+                    </div>
+                    <div class="space-y-3 text-sm">
+                        <div>
+                            <span class="text-[10px] tracking-widest uppercase font-bold text-fg-faint block mb-1">Challenge</span>
+                            <p class="text-fg-muted leading-relaxed">${proj.challenge}</p>
+                        </div>
+                        <div>
+                            <span class="text-[10px] tracking-widest uppercase font-bold text-fg-faint block mb-1">Solution</span>
+                            <p class="text-fg-muted leading-relaxed">${proj.solution}</p>
+                        </div>
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        function renderContact(data) {
+            const container = document.getElementById('contact-container');
+            const entries = [
+                { label: 'EMAIL', value: data.email, href: `mailto:${data.email}` },
+                { label: 'GITHUB', value: data.github, href: `https://${data.github}` },
+                { label: 'LINKEDIN', value: data.linkedin, href: `https://${data.linkedin}` },
+                { label: 'PGP', value: data.pgp, href: null }
+            ];
+            container.innerHTML = `
+                <div class="max-w-xl space-y-0 fade-in-up">
+                    ${entries.map(e => `
+                        <div class="flex flex-col sm:flex-row gap-1 sm:gap-0 py-3 border-b border-surface-3">
+                            <span class="text-[10px] tracking-widest uppercase font-bold text-fg-faint sm:w-28 flex-shrink-0">${e.label}</span>
+                            ${e.href
+                                ? `<a href="${e.href}" class="text-sm text-accent-blue hover:text-fg transition-colors duration-150 break-all" target="_blank" rel="noopener noreferrer">${e.value}</a>`
+                                : `<span class="text-sm text-fg-muted font-mono">${e.value}</span>`
+                            }
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+
+        // ═══════════════════════════════════════════
+        // TERMINAL TYPING EFFECT
+        // ═══════════════════════════════════════════
+
+        function initTerminal() {
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const output = document.getElementById('terminal-output');
+            const lines = [
+                { prefix: '> ', text: 'building resilient infrastructure at scale' },
+                { prefix: '> ', text: 'automating everything that can be automated' },
+                { prefix: '> ', text: 'infrastructure as code, always' }
+            ];
+
+            if (prefersReducedMotion) {
+                output.innerHTML = lines.map(l =>
+                    `<div class="text-fg-muted">${l.prefix}${l.text}</div>`
+                ).join('');
+                return;
+            }
+
+            let lineIndex = 0;
+            let charIndex = 0;
+            let currentLineEl = null;
+
+            function createLine() {
+                const div = document.createElement('div');
+                div.className = 'text-fg-muted';
+                output.appendChild(div);
+                return div;
+            }
+
+            function type() {
+                if (lineIndex >= lines.length) {
+                    // Add blinking cursor at the end
+                    const cursor = document.createElement('span');
+                    cursor.className = 'cursor-blink text-accent-green';
+                    cursor.textContent = '\u2588';
+                    currentLineEl.appendChild(cursor);
+                    return;
+                }
+
+                if (charIndex === 0) {
+                    currentLineEl = createLine();
+                    currentLineEl.textContent = lines[lineIndex].prefix;
+                }
+
+                if (charIndex < lines[lineIndex].text.length) {
+                    currentLineEl.textContent = lines[lineIndex].prefix + lines[lineIndex].text.substring(0, charIndex + 1);
+                    charIndex++;
+                    setTimeout(type, 35 + Math.random() * 25);
+                } else {
+                    charIndex = 0;
+                    lineIndex++;
+                    setTimeout(type, 600);
+                }
+            }
+
+            setTimeout(type, 800);
+        }
+
+
+        // ═══════════════════════════════════════════
+        // THEME MANAGEMENT
+        // ═══════════════════════════════════════════
+
+        function initTheme() {
+            const html = document.documentElement;
+            const toggle = document.getElementById('theme-toggle');
+            const mobileToggle = document.getElementById('mobile-theme-toggle');
+            const stored = localStorage.getItem('theme');
+
+            if (stored === 'light') {
+                html.classList.remove('dark');
+                html.classList.add('light');
+            }
+
+            function updateLabel() {
+                const isLight = html.classList.contains('light');
+                const label = isLight ? 'DARK' : 'LIGHT';
+                toggle.textContent = label;
+                mobileToggle.textContent = label;
+            }
+
+            function toggleTheme() {
+                if (html.classList.contains('dark')) {
+                    html.classList.remove('dark');
+                    html.classList.add('light');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    html.classList.remove('light');
+                    html.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                }
+                updateLabel();
+            }
+
+            toggle.addEventListener('click', toggleTheme);
+            mobileToggle.addEventListener('click', toggleTheme);
+            updateLabel();
+        }
+
+
+        // ═══════════════════════════════════════════
+        // MOBILE MENU
+        // ═══════════════════════════════════════════
+
+        function initMobileMenu() {
+            const btn = document.getElementById('mobile-menu-btn');
+            const menu = document.getElementById('mobile-menu');
+            const closeBtn = document.getElementById('mobile-menu-close');
+            const links = menu.querySelectorAll('a');
+
+            function openMenu() {
+                menu.classList.remove('translate-x-full', 'opacity-0');
+                menu.classList.add('translate-x-0', 'opacity-100');
+                btn.setAttribute('aria-expanded', 'true');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeMenu() {
+                menu.classList.add('translate-x-full', 'opacity-0');
+                menu.classList.remove('translate-x-0', 'opacity-100');
+                btn.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
+            }
+
+            btn.addEventListener('click', openMenu);
+            closeBtn.addEventListener('click', closeMenu);
+            links.forEach(link => link.addEventListener('click', closeMenu));
+        }
+
+
+        // ═══════════════════════════════════════════
+        // UPTIME CLOCK
+        // ═══════════════════════════════════════════
+
+        function initClock() {
+            const el = document.getElementById('uptime-clock');
+            const startTime = Date.now();
+
+            function pad(n) { return String(n).padStart(2, '0'); }
+
+            function update() {
+                const elapsed = Date.now() - startTime;
+                const s = Math.floor(elapsed / 1000) % 60;
+                const m = Math.floor(elapsed / 60000) % 60;
+                const h = Math.floor(elapsed / 3600000);
+                el.textContent = `${pad(h)}:${pad(m)}:${pad(s)}`;
+                requestAnimationFrame(update);
+            }
+
+            update();
+        }
+
+
+        // ═══════════════════════════════════════════
+        // SCROLL-TRIGGERED FADE-IN
+        // ═══════════════════════════════════════════
+
+        function initScrollReveal() {
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (prefersReducedMotion) return;
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+            document.querySelectorAll('.fade-in-up').forEach(el => {
+                el.style.animationPlayState = 'paused';
+                observer.observe(el);
+            });
+        }
+
+
+        // ═══════════════════════════════════════════
+        // SMOOTH SCROLL FOR NAV LINKS
+        // ═══════════════════════════════════════════
+
+        function initSmoothScroll() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        const offset = 48; // nav height
+                        const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                        window.scrollTo({ top, behavior: 'smooth' });
+                    }
+                });
+            });
+        }
+
+
+        // ═══════════════════════════════════════════
+        // INIT
+        // ═══════════════════════════════════════════
+
+        function init() {
+            // Simulate API fetch — replace with actual Flask endpoints
+            // async function loadContent() {
+            //     const [experience, skills, projects, contact] = await Promise.all([
+            //         fetchContent('experience'),
+            //         fetchContent('skills'),
+            //         fetchContent('projects'),
+            //         fetchContent('contact')
+            //     ]);
+            //     renderExperience(experience);
+            //     renderSkills(skills);
+            //     renderProjects(projects);
+            //     renderContact(contact);
+            // }
+
+            renderExperience(CONTENT_API.experience);
+            renderSkills(CONTENT_API.skills);
+            renderProjects(CONTENT_API.projects);
+            renderContact(CONTENT_API.contact);
+
+            initTerminal();
+            initTheme();
+            initMobileMenu();
+            initClock();
+            initSmoothScroll();
+
+            // Delay scroll reveal to allow render
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    initScrollReveal();
+                });
+            });
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+
+    })();
+    </script>
+</body>
+</html>
