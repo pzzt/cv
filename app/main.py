@@ -123,7 +123,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")
 
     # Root endpoint - serve the frontend HTML
-    @app.get("/", include_in_schema=False)
+    @app.get("/", include_in_schema=False, response_model=None)
     async def root() -> FileResponse | dict[str, str | None]:
         """Serve the frontend HTML."""
         html_path = Path(__file__).parent.parent / "static" / "index.html"
