@@ -640,22 +640,25 @@
             }
 
             toggle.addEventListener('click', toggleTheme);
-            mobileToggle.addEventListener('click', toggleTheme);
+            mobileToggle.addEventListener('click', () => {
+                closeMenu();
+                toggleTheme();
+            });
             updateLabel();
 
-            // Ask user for theme preference on first visit
-            if (!themeAsked) {
-                setTimeout(() => {
-                    const userPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                    const message = `Detected ${userPrefersDark ? 'dark' : 'light'} mode. Use detected theme?`;
-                    const choice = window.confirm(message);
-                    if (choice === false) {
-                        // User wants opposite theme
-                        toggleTheme();
-                    }
-                    localStorage.setItem('theme-asked', 'true');
-                }, 1500); // Small delay to not interrupt initial load
-            }
+            // Ask user for theme preference on first visit (DISABLED)
+            // if (!themeAsked) {
+            //     setTimeout(() => {
+            //         const userPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            //         const message = `Detected ${userPrefersDark ? 'dark' : 'light'} mode. Use detected theme?`;
+            //         const choice = window.confirm(message);
+            //         if (choice === false) {
+            //             // User wants opposite theme
+            //             toggleTheme();
+            //         }
+            //         localStorage.setItem('theme-asked', 'true');
+            //     }, 1500); // Small delay to not interrupt initial load
+            // }
         }
 
 
