@@ -591,10 +591,18 @@
             const toggle = document.getElementById('theme-toggle');
             const mobileToggle = document.getElementById('mobile-theme-toggle');
             const stored = localStorage.getItem('theme');
+            const themeAsked = localStorage.getItem('theme-asked');
 
             if (stored === 'light') {
                 html.classList.remove('dark');
                 html.classList.add('light');
+            } else if (stored === 'dark') {
+                html.classList.add('dark');
+                html.classList.remove('light');
+            } else {
+                // No preference stored - detect system theme
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                html.classList.add(prefersDark ? 'dark' : 'light');
             }
 
             function updateLabel() {
@@ -620,6 +628,20 @@
             toggle.addEventListener('click', toggleTheme);
             mobileToggle.addEventListener('click', toggleTheme);
             updateLabel();
+
+            // Ask user for theme preference on first visit
+            if (!themeAsked) {
+                setTimeout(() => {
+                    const userPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                    const message = `Detected ${userPrefersDark ? 'dark' : 'light'} mode. Use detected theme?`;
+                    const choice = window.confirm(message);
+                    if (choice === false) {
+                        // User wants opposite theme
+                        toggleTheme();
+                    }
+                    localStorage.setItem('theme-asked', 'true');
+                }, 1500); // Small delay to not interrupt initial load
+            }
         }
 
 
