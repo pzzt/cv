@@ -51,7 +51,8 @@
             --surface-1: #111111;
             --surface-2: #1a1a1a;
             --surface-3: #2a2a2a;
-            --fg: #ffffff;
+            --fg-headings: #ffffff;
+            --fg-text: #f0f0f0;
             --fg-muted: #d4d4d8;
             --fg-faint: #9ca3af;
         }
@@ -61,7 +62,8 @@
             --surface-1: #eeeee9;
             --surface-2: #e0e0db;
             --surface-3: #d0d0cb;
-            --fg: #1a1a18;
+            --fg-headings: #1a1a18;
+            --fg-text: #111111;
             --fg-muted: #525250;
             --fg-faint: #8a8a85;
         }
@@ -112,6 +114,18 @@
             text-transform: uppercase;
             color: var(--fg-faint);
             font-weight: 600;
+        }
+
+        .text-block {
+            color: var(--fg-text);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--fg-headings);
+        }
+
+        p, li {
+            color: var(--fg-text);
         }
 
         .hr-brutal {
@@ -334,7 +348,7 @@
     <!-- Footer -->
     <footer class="border-t border-surface-3 px-4 sm:px-6 lg:px-8 py-6 max-w-7xl mx-auto" role="contentinfo">
         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-[10px] tracking-widest uppercase text-fg-faint font-semibold">
-            <span>&copy; 2025 Andrea Pozzato. All rights reserved.</span>
+            <span>&copy; <span id="copyright-year">2025</span> Andrea Pozzato. All rights reserved.</span>
             <div class="flex items-center gap-4">
                 <span>Handcrafted</span>
                 <span class="text-surface-3">|</span>
@@ -347,9 +361,9 @@
     (function() {
         'use strict';
 
-        // ═══════════════════════════════════════════
+        // ═══════════════════════════════════
         // API CONFIGURATION
-        // ═══════════════════════════════════════════
+        // ═════════════════════════════════
         const API_BASE = window.location.origin;
         const API_ENDPOINTS = {
             portfolio: '/api/portfolio/',
@@ -359,10 +373,9 @@
             contact: '/api/portfolio/contact'
         };
 
-
-        // ═══════════════════════════════════════════
+        // ═════════════════════════════════
         // DATA FETCHING
-        // ═══════════════════════════════════════════
+        // ═════════════════════════════════
         async function fetchAPI(endpoint) {
             try {
                 const response = await fetch(`${API_BASE}${endpoint}`);
@@ -408,9 +421,9 @@
         }
 
 
-        // ═══════════════════════════════════════════
+        // ═══════════════════════════════════
         // RENDER FUNCTIONS
-        // ═══════════════════════════════════════════
+        // ═══════════════════════════════════
 
         function renderExperience(data) {
             const container = document.getElementById('experience-container');
@@ -522,9 +535,9 @@
         }
 
 
-        // ═══════════════════════════════════════════
+        // ═══════════════════════════════════
         // TERMINAL TYPING EFFECT
-        // ═══════════════════════════════════════════
+        // ═══════════════════════════════════════
 
         function initTerminal() {
             const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -582,9 +595,9 @@
         }
 
 
-        // ═══════════════════════════════════════════
+        // ═══════════════════════════════════
         // THEME MANAGEMENT
-        // ═══════════════════════════════════════════
+        // ═════════════════════════════════════════
 
         function initTheme() {
             const html = document.documentElement;
@@ -645,9 +658,9 @@
         }
 
 
-        // ═══════════════════════════════════════════
+        // ═════════════════════════════════════
         // MOBILE MENU
-        // ═══════════════════════════════════════════
+        // ═══════════════════════════════════════
 
         function initMobileMenu() {
             const btn = document.getElementById('mobile-menu-btn');
@@ -675,9 +688,9 @@
         }
 
 
-        // ═══════════════════════════════════════════
+        // ═════════════════════════════════
         // UPTIME CLOCK
-        // ═══════════════════════════════════════════
+        // ═══════════════════════════════════
 
         function initClock() {
             const el = document.getElementById('uptime-clock');
@@ -698,9 +711,9 @@
         }
 
 
-        // ═══════════════════════════════════════════
+        // ═══════════════════════════════════
         // SCROLL-TRIGGERED FADE-IN
-        // ═══════════════════════════════════════════
+        // ═══════════════════════════════════════
 
         function initScrollReveal() {
             const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -722,7 +735,7 @@
         }
 
 
-        // ═══════════════════════════════════════════
+        // ═══════════════════════════════════
         // SMOOTH SCROLL FOR NAV LINKS
         // ═══════════════════════════════════════════
 
@@ -741,15 +754,28 @@
         }
 
 
-        // ═══════════════════════════════════════════
+        // ═══════════════════════════════════════
+        // YEAR UPDATE
+        // ═════════════════════════════════════════
+
+        function initYear() {
+            const yearSpan = document.getElementById('copyright-year');
+            if (yearSpan) {
+                yearSpan.textContent = new Date().getFullYear();
+            }
+        }
+
+
+        // ═════════════════════════════════
         // INIT
-        // ═══════════════════════════════════════════
+        // ═════════════════════════════════════════════════════════════════
 
         async function init() {
             // Fetch data from API
             await loadAllContent();
 
             // Initialize UI components
+            initYear();
             initTerminal();
             initTheme();
             initMobileMenu();
@@ -769,7 +795,6 @@
         } else {
             init();
         }
-
     })();
     </script>
 </body>
